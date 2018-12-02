@@ -12,41 +12,53 @@
       <div class="header-wrap">
         <h1 class="heading">Mr. Negm's Calculator</h1>
         <p class="description">
-          If you have any issues with this app please email mr.negm90@gmail.com
+          If you have any issues with this app please email: <br>mr.negm90@gmail.com
         </p>
       </div>
     </header>
     <main>
-      <div class="container">
-        <div class="box" id="box-ans"><output>Box 1</output></div>
-
-        <div class="box" id="box("><button type="button">(</button></div>
-        <div class="box" id="box)"><button type="button">)</button></div>
-        <div class="box" id="box%"><button type="button">%</button></div>
-        <div class="box" id="boxAC"><button type="button">AC</button></div>
-        <div class="box" id="box7"><button type="button">7</button></div>
-        <div class="box" id="box8"><button type="button">8</button></div>
-        <div class="box" id="box9"><button type="button">9</button></div>
-        <div class="box" id="box/"><button type="button">/</button></div>
-        <div class="box" id="box4"><button type="button">4</button></div>
-        <div class="box" id="box5"><button type="button">5</button></div>
-        <div class="box" id="box6"><button type="button">6</button></div>
-        <div class="box" id="boxx"><button type="button">x</button></div>
-        <div class="box" id="box1"><button type="button">1</button></div>
-        <div class="box" id="box2"><button type="button">2</button></div>
-        <div class="box" id="box3"><button type="button">3</button></div>
-        <div class="box" id="box-"><button type="button">-</button></div>
-        <div class="box" id="box0"><button type="button">0</button></div>
-        <div class="box" id="box."><button type="button">.</button></div>
-        <div class="box" id="box="><button type="button">=</button></div>
-        <div class="box" id="box+"><button type="button">+</button></div>
+      <div id="calculator">
+        <!-- ------------Results Bar---------- -->
+        <div id="result">
+            <div class="history"><p id="history-value"></p></div>
+            <div class="output"><p id="output-valuet"></p></div>
+          </div>
+          <!-- ----------- Numbers ----------- -->
+          <div id="keyboard">
+            <button class="operator" id="(">(</button>
+            <button class="operator" id=")">)</button>
+            <button class="operator" id="%">%</button>
+            <button class="operator" id="clear">C</button>
+            <button class="number" id="7">7</button>
+            <button class="number" id="8">8</button>
+            <button class="number" id="9">9</button>
+            <button class="operator" id="/">&#247;</button>
+            <button class="number" id="4">4</button>
+            <button class="number" id="5">5</button>
+            <button class="number" id="6">6</button>
+            <button class="operator" id="*">&times;</button>
+            <button class="number" id="1">1</button>
+            <button class="number" id="2">2</button>
+            <button class="number" id="3">3</button>
+            <button class="operator" id="-">-</button>
+            <button class="number" id="0">0</button>
+            <button class="operator" id="equal">=</button>
+            <button class="operator" id="+">+</button>
+          </div>
+        </div>
       </div>
     </main>
-
-    <script src="main.js">
-      var question = "what's your name?";
-      var answer = prompt(question);
-      alert("hello " + answer + "!");
-    </script>
+    <Footer>
+    <div class="Footer-wrap">
+      <h1 class="heading">Coming soon:</h1>
+      <p class="description">
+        More complex math operations, please check back later. In the meantime, check out some of my other work: 
+      </p>
+      <a href="https://moenegm.github.io/Photography/">My Photography Website #1</a><br>
+      <a href="https://moenegm.github.io/portfolio/">My Photography Website #2</a><br>
+      <a href="http://www.mohamednegm.win/">My Photography Website #3</a><br>
+    </div>
+  </Footer>
+    <script src="main.js"></script>
   </body>
 </html>
