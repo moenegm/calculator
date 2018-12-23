@@ -33,6 +33,8 @@ for (var i = 0; i < operator.length; i++) {
     if (this.id == "clear") {
       printHistory("");
       printOutput("");
+    } else if (this.id == "delete") {
+      printOutput = printOutput - 1;
     } else {
       var output = getOutput();
       var history = getHistory();
