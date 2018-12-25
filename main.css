@@ -7,18 +7,21 @@ body {
   min-width: 400px;
   max-height: 100%;
   min-height: 800px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family:'Merienda';
+  background-color: rgb(75, 75, 65);
 }
 .header-wrap {
-  max-width: 200px;
+  max-width: 300px;
   margin: 0 auto;
   text-align: center;
+  color: white;
+ padding: 0;
 }
 #calculator {
   margin: 0 auto;
   padding: 20px;
   border-radius: 10%;
-  background-color: rgb(75, 75, 65);
+  background-color: rgb(199, 136, 18);
   width: 300px;
   height: 500px;
   box-shadow: 0px 0px 18px 7px #6f6363;
@@ -29,10 +32,10 @@ body {
   grid-template-rows: 1fr 2fr;
   border: 1px solid black;
   height: 100px;
-  background-color: white;
+  background-color: silver;
   padding: 2%;
   margin-bottom: 10px;
-  border-radius: 5%;
+  border-radius: 15%;
 }
 .history1 {
   grid-row-start: 1;
@@ -42,6 +45,7 @@ body {
   text-align: right;
   padding-top: 20px;
   font-size: 2rem;
+  
 }
 #history-value-1 {
   margin: 0;
@@ -60,21 +64,38 @@ button {
   border-radius: 50%;
   font-weight: bold;
   cursor: pointer;
+  font-size: 1.5em;
+  font-family:'Merienda';
 }
-button:hover {
-  background-color: rgb(255, 187, 0);
+.operator{
+  background-color: rgb(119, 117, 111);
+  color: white;
+  font-size: 1.5em;
 }
-#equal button {
-  min-width: 110px;
+#clear{
+  background-color: aquamarine;
+  color: black;
+}
+#delete{
+  background-color: aquamarine;
+  font-size: 1.5em;
+  color: black;
 }
 #equal {
   border-radius: 10%;
+  background-color: aquamarine;
+  color: black;
 }
-.Footer-wrap {
-  max-width: 250px;
-  margin: 0 auto;
-  text-align: center;
+.decimal{
+  background-color: rgb(119, 117, 111);
+  color: white;
+  font-size: 2em;
+  padding-bottom: 20px;
 }
+button:hover {
+  opacity: .60;
+}
+
 /*
 @media screen and (min-width: 750px) {
   body {

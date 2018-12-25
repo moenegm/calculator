@@ -46,11 +46,12 @@ for (var i = 0; i < operator.length; i++) {
       var history = getHistory();
       var history2 = getHistory2();
 
-      if (history != "" || output != "" || history !== "^") {
+      if (history != "" || output != "") {
         num1 = history;
         num2 = output;
+        percentNum = history;
         history = history + output;
-        if (this.id == "equal" && this.id != "%") {
+        if (this.id == "equal") {
           if (history2 == null) {
             // For Power Operator
             num3 = num2.replace("^", "");
@@ -63,16 +64,27 @@ for (var i = 0; i < operator.length; i++) {
             // For Power Operator Results
             printOutput(result);
             printHistory("");
+          } else if (history < 1) {
+            // to get percent operator result
+            var result = percentNum * output;
+            printOutput(result);
+            printHistory("");
           } else {
             // For All Other Results
             var result = eval(history);
+            result.maxLength = 15;
             printOutput(result);
             printHistory("");
           }
-        } else if (this.id == "%") {
-          result = output / 100;
-          printOutput(result);
-          printHistory("");
+        } else if (this.id == "%" && output <= 100) {
+          // to save percent operator result
+          result = output = output / 100;
+          printOutput("");
+          printHistory(result);
+        } else if (this.id == "%" && output >= 100) {
+          alert(
+            "Percent Only works with numbers less than 100, Press Clear and try again!"
+          );
         } else {
           history = history + this.id;
           printHistory(history);
@@ -87,10 +99,9 @@ var number = document.getElementsByClassName("number");
 for (var i = 0; i < number.length; i++) {
   number[i].addEventListener("click", function() {
     var output = getOutput();
-    if (output != NaN) {
+    if (output != NaN && output.length < 15) {
       output = output + this.id;
       printOutput(output);
-    } else {
     }
   });
 }

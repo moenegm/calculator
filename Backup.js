@@ -46,11 +46,12 @@ for (var i = 0; i < operator.length; i++) {
       var history = getHistory();
       var history2 = getHistory2();
 
-      if (history != "" || output != "" || history !== "^") {
+      if (history != "" || output != "") {
         num1 = history;
         num2 = output;
+        percentNum = history;
         history = history + output;
-        if (this.id == "equal" && this.id != "%") {
+        if (this.id == "equal") {
           if (history2 == null) {
             // For Power Operator
             num3 = num2.replace("^", "");
@@ -63,6 +64,11 @@ for (var i = 0; i < operator.length; i++) {
             // For Power Operator Results
             printOutput(result);
             printHistory("");
+          } else if (history < 1) {
+            // to get percent operator result
+            var result = percentNum * output;
+            printOutput(result);
+            printHistory("");
           } else {
             // For All Other Results
             var result = eval(history);
@@ -70,9 +76,10 @@ for (var i = 0; i < operator.length; i++) {
             printHistory("");
           }
         } else if (this.id == "%") {
-          result = output / 100;
-          printOutput(result);
-          printHistory("");
+          // to save percent operator result
+          result = output = output / 100;
+          printOutput("");
+          printHistory(result);
         } else {
           history = history + this.id;
           printHistory(history);
