@@ -57,17 +57,46 @@ body {
   grid-gap: 10px;
   grid-template-columns: repeat(4, 1fr);
 }
+
 button {
+  
+  cursor: pointer;
+  font-size: 1.5em;
+  font-family:'Merienda';
+}
+
+.number {
   border: 1px solid black;
   outline: none;
   height: 67.5px;
   border-radius: 50%;
   font-weight: bold;
-  cursor: pointer;
-  font-size: 1.5em;
-  font-family:'Merienda';
 }
+
+#root {
+  display: grid;
+  grid-template-rows: 2, 1fr;
+  grid-gap: 5px;
+ 
+}
+
+.rtoperator{
+  border: 1px solid black;
+  outline: none;
+  height: 32px;
+  width: 66px;
+  background-color: rgb(119, 117, 111);
+  color: white;
+  border-radius: 20%;
+  font-weight: bold;
+}
+
 .operator{
+  border: 1px solid black;
+  outline: none;
+  height: 67.5px;
+  border-radius: 50%;
+  font-weight: bold;
   background-color: rgb(119, 117, 111);
   color: white;
   font-size: 1.5em;
@@ -80,6 +109,10 @@ button {
   background-color: aquamarine;
   font-size: 1.5em;
   color: black;
+  border: 1px solid black;
+  outline: none;
+  height: 67.5px;
+  border-radius: 50%;
 }
 #equal {
   border-radius: 10%;

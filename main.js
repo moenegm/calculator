@@ -19,7 +19,7 @@ function printOutput(num) {
 }
 //Delete Button
 var backSpace = document.getElementById("delete");
-backSpace.addEventListener("click", function() {
+backSpace.addEventListener("click", function () {
   var output = getOutput();
   if (output != "" && this.id == "delete") {
     output = output.substring(0, output.length - 1);
@@ -29,7 +29,7 @@ backSpace.addEventListener("click", function() {
 //operators
 var operator = document.getElementsByClassName("operator");
 for (var i = 0; i < operator.length; i++) {
-  operator[i].addEventListener("click", function() {
+  operator[i].addEventListener("click", function () {
     if (this.id == "clear") {
       printHistory("");
       printOutput("");
@@ -97,7 +97,7 @@ for (var i = 0; i < operator.length; i++) {
 // Numbers
 var number = document.getElementsByClassName("number");
 for (var i = 0; i < number.length; i++) {
-  number[i].addEventListener("click", function() {
+  number[i].addEventListener("click", function () {
     var output = getOutput();
     if (output != NaN && output.length < 15) {
       output = output + this.id;
