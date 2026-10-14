@@ -3,50 +3,52 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="description" content="A browser calculator built with vanilla JavaScript." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="main.css" />
-    <link href='https://fonts.googleapis.com/css?family=Merienda' rel='stylesheet'>
     <title>Calculator</title>
   </head>
   <body>
-    <header>
-      <div class="header-wrap">
-        <h1 class="heading"></br>Mohamed's Calculator</br></br></h1>
-      </div>
-    </header>
-    <main>
-      <div id="calculator">
-        <!-- ------------Results Bar---------- -->
-        <div id="result">
-            <div class="history1 history2"><p id="history-value-1"></p></div>
-            <div class="output" ><output id="output-valuet"></output></div>
-          </div>
-          <div class="history2"><p id="history-value-2"></p></div>
-          <!-- ----------- Numbers ------------->
-          <div id="keyboard">
-            <button class="operator" id="clear">C</button>
-            <button class="delete" id="delete">&#8592</button>
-            <button class="operator" id="%">%</button>
-            <button class="operator" id="+">+</button>
-            <button class="number" id="1">1</button>
-            <button class="number" id="2">2</button>
-            <button class="number" id="3">3</button>
-            <button class="operator" id="-">-</button>
-            <button class="number" id="4">4</button>
-            <button class="number" id="5">5</button>
-            <button class="number" id="6">6</button>
-            <button class="operator" id="*">&times;</button>                       
-            <button class="number" id="7">7</button>
-            <button class="number" id="8">8</button>
-            <button class="number" id="9">9</button>
-            <button class="operator" id="/">&#247;</button>
-            <button class="number decimal" id=".">.</button>
-            <button class="number" id="0">0</button>
-            <button class="operator" id="^">x^</button>
-            <button class="operator" id="equal">=</button>      
-          </div>
+    <main class="page">
+      <h1 class="title">Calculator</h1>
+
+      <div class="calculator" role="application" aria-label="Calculator">
+        <div class="display">
+          <div class="history" id="history" aria-live="polite"></div>
+          <output class="output" id="output" aria-live="polite">0</output>
+        </div>
+
+        <div class="keys">
+          <button class="key key--fn" data-action="clear">C</button>
+          <button class="key key--fn" data-action="delete" aria-label="Delete">&#9003;</button>
+          <button class="key key--fn" data-action="percent">%</button>
+          <button class="key key--op" data-op="/" aria-label="Divide">&divide;</button>
+
+          <button class="key" data-digit="7">7</button>
+          <button class="key" data-digit="8">8</button>
+          <button class="key" data-digit="9">9</button>
+          <button class="key key--op" data-op="*" aria-label="Multiply">&times;</button>
+
+          <button class="key" data-digit="4">4</button>
+          <button class="key" data-digit="5">5</button>
+          <button class="key" data-digit="6">6</button>
+          <button class="key key--op" data-op="-" aria-label="Subtract">&minus;</button>
+
+          <button class="key" data-digit="1">1</button>
+          <button class="key" data-digit="2">2</button>
+          <button class="key" data-digit="3">3</button>
+          <button class="key key--op" data-op="+" aria-label="Add">+</button>
+
+          <button class="key key--fn" data-op="^" aria-label="Power">x<sup>y</sup></button>
+          <button class="key" data-digit="0">0</button>
+          <button class="key" data-action="decimal">.</button>
+          <button class="key key--equals" data-action="equals">=</button>
         </div>
       </div>
+
+      <p class="hint">Works with your keyboard too: digits, + − * / ^ %, Enter, Backspace, Esc.</p>
     </main>
     <script src="main.js"></script>
   </body>

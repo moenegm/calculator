@@ -1,107 +1,146 @@
-//getting History and results on the screen
-function getHistory() {
-  return document.getElementById("history-value-1").innerText;
-}
-function printHistory(num) {
-  document.getElementById("history-value-1").innerText = num;
-}
-function getHistory2() {
-  return document.getElementsByClassName("history-value-2").innerText;
-}
-function printHistory2(num) {
-  document.getElementsByClassName("history-value-2").innerText = num;
-}
-function getOutput() {
-  return document.getElementById("output-valuet").innerText;
-}
-function printOutput(num) {
-  document.getElementById("output-valuet").innerText = num;
-}
-//Delete Button
-var backSpace = document.getElementById("delete");
-backSpace.addEventListener("click", function() {
-  var output = getOutput();
-  if (output != "" && this.id == "delete") {
-    output = output.substring(0, output.length - 1);
-    printOutput(output);
-  }
-});
-//operators
-var operator = document.getElementsByClassName("operator");
-for (var i = 0; i < operator.length; i++) {
-  operator[i].addEventListener("click", function() {
-    if (this.id == "clear") {
-      printHistory("");
-      printOutput("");
-    } else if (this.id == "^") {
-      var output = getOutput();
-      var history = getHistory();
-      var history2 = getHistory2();
-      history = output;
-      history2 = this.id;
-      printHistory(history);
-      printOutput(history2);
-    } else {
-      var output = getOutput();
-      var history = getHistory();
-      var history2 = getHistory2();
+// A small calculator that works on numbers, not strings, so there is no eval().
 
-      if (history != "" || output != "") {
-        num1 = history;
-        num2 = output;
-        percentNum = history;
-        history = history + output;
-        if (this.id == "equal") {
-          if (history2 == null) {
-            // For Power Operator
-            num3 = num2.replace("^", "");
-            num4 = num2.substring(0, num2.length - 1);
-            var result = Math.pow(num1, num3);
-            printOutput(result);
-            printHistory("");
-          }
-          if (num4 == "^") {
-            // For Power Operator Results
-            printOutput(result);
-            printHistory("");
-          } else if (history < 1) {
-            // to get percent operator result
-            var result = percentNum * output;
-            printOutput(result);
-            printHistory("");
-          } else {
-            // For All Other Results
-            var result = eval(history);
-            result.maxLength = 15;
-            printOutput(result);
-            printHistory("");
-          }
-        } else if (this.id == "%" && output <= 100) {
-          // to save percent operator result
-          result = output = output / 100;
-          printOutput("");
-          printHistory(result);
-        } else if (this.id == "%" && output >= 100) {
-          alert(
-            "Percent Only works with numbers less than 100, Press Clear and try again!"
-          );
-        } else {
-          history = history + this.id;
-          printHistory(history);
-          printOutput("");
-        }
-      }
-    }
+const MAX_DIGITS = 15;
+const SYMBOLS = { "+": "+", "-": "−", "*": "×", "/": "÷", "^": "^" };
+
+const historyEl = document.getElementById("history");
+const outputEl = document.getElementById("output");
+
+let state = {
+  current: "0", // what is being typed, as a string
+  previous: null, // the left-hand number, once an operator is picked
+  operator: null,
+  waiting: false, // true right after an operator, until the next number is typed
+  justEvaluated: false,
+};
+
+function calculate(a, b, op) {
+  switch (op) {
+    case "+": return a + b;
+    case "-": return a - b;
+    case "*": return a * b;
+    case "/": return b === 0 ? NaN : a / b;
+    case "^": return Math.pow(a, b);
+  }
+  return b;
+}
+
+// Round away floating point noise like 0.1 + 0.2 = 0.30000000000000004.
+function format(value) {
+  if (!Number.isFinite(value)) return "Error";
+  const rounded = parseFloat(value.toPrecision(12));
+  const text = String(rounded);
+  return text.length > MAX_DIGITS ? rounded.toExponential(6) : text;
+}
+
+function render() {
+  outputEl.textContent = state.current;
+  outputEl.classList.toggle("is-long", state.current.length > 9);
+  historyEl.textContent =
+    state.operator !== null ? `${format(state.previous)} ${SYMBOLS[state.operator]}` : "";
+  document.querySelectorAll(".key--op").forEach((key) => {
+    key.classList.toggle("is-active", key.dataset.op === state.operator && state.waiting);
   });
 }
-// Numbers
-var number = document.getElementsByClassName("number");
-for (var i = 0; i < number.length; i++) {
-  number[i].addEventListener("click", function() {
-    var output = getOutput();
-    if (output != NaN && output.length < 15) {
-      output = output + this.id;
-      printOutput(output);
-    }
-  });
+
+function startFresh() {
+  if (state.waiting || state.justEvaluated || state.current === "Error") {
+    state.current = "0";
+    state.waiting = false;
+    state.justEvaluated = false;
+  }
 }
+
+function inputDigit(digit) {
+  startFresh();
+  if (state.current.replace(/[-.]/g, "").length >= MAX_DIGITS) return;
+  state.current = state.current === "0" ? digit : state.current + digit;
+}
+
+function inputDecimal() {
+  startFresh();
+  if (!state.current.includes(".")) state.current += ".";
+}
+
+function chooseOperator(op) {
+  if (state.current === "Error") return;
+  const value = parseFloat(state.current);
+  if (state.operator === null || state.justEvaluated) {
+    state.previous = value;
+  } else if (!state.waiting) {
+    // Chain operations: 2 + 3 + shows 5 before the next number.
+    state.previous = calculate(state.previous, value, state.operator);
+  }
+  state.operator = op;
+  state.current = format(state.previous);
+  state.waiting = true;
+  state.justEvaluated = false;
+}
+
+function equals() {
+  if (state.operator === null || state.waiting) return;
+  const result = calculate(state.previous, parseFloat(state.current), state.operator);
+  historyEl.textContent = "";
+  state = { current: format(result), previous: null, operator: null, waiting: false, justEvaluated: true };
+}
+
+// 50 % → 0.5, and 200 + 10 % → 200 + 20, like most phone calculators.
+function percent() {
+  if (state.current === "Error" || state.waiting) return;
+  const value = parseFloat(state.current);
+  const base = state.operator === "+" || state.operator === "-" ? state.previous : 1;
+  state.current = format((base * value) / 100);
+}
+
+function backspace() {
+  if (state.waiting) return;
+  if (state.justEvaluated || state.current === "Error") {
+    state.current = "0";
+    state.justEvaluated = false;
+    return;
+  }
+  state.current = state.current.length > 1 ? state.current.slice(0, -1) : "0";
+  if (state.current === "-") state.current = "0";
+}
+
+function clear() {
+  state = { current: "0", previous: null, operator: null, waiting: false, justEvaluated: false };
+}
+
+function handle(key) {
+  if (key.digit !== undefined) inputDigit(key.digit);
+  else if (key.op) chooseOperator(key.op);
+  else if (key.action === "decimal") inputDecimal();
+  else if (key.action === "equals") equals();
+  else if (key.action === "percent") percent();
+  else if (key.action === "delete") backspace();
+  else if (key.action === "clear") clear();
+  render();
+}
+
+document.querySelector(".keys").addEventListener("click", (event) => {
+  const button = event.target.closest("button");
+  if (button) handle(button.dataset);
+});
+
+const KEYBOARD = {
+  Enter: { action: "equals" },
+  "=": { action: "equals" },
+  Backspace: { action: "delete" },
+  Escape: { action: "clear" },
+  ".": { action: "decimal" },
+  ",": { action: "decimal" },
+  "%": { action: "percent" },
+};
+
+document.addEventListener("keydown", (event) => {
+  let key = null;
+  if (/^\d$/.test(event.key)) key = { digit: event.key };
+  else if (event.key in SYMBOLS) key = { op: event.key };
+  else if (event.key in KEYBOARD) key = KEYBOARD[event.key];
+  if (!key) return;
+  event.preventDefault();
+  handle(key);
+});
+
+render();

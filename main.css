@@ -1,188 +1,141 @@
-*{
-  margin: 0;
-  padding: 0;
-}
-body {
-  max-width: 100%;
-  min-width: 400px;
-  max-height: 100%;
-  min-height: 800px;
-  font-family:'Merienda';
-  background-color: rgb(75, 75, 65);
-}
-.header-wrap {
-  max-width: 300px;
-  margin: 0 auto;
-  text-align: center;
-  color: white;
- padding: 0;
-}
-#calculator {
-  margin: 0 auto;
-  padding: 20px;
-  border-radius: 10%;
-  background-color: rgb(199, 136, 18);
-  width: 300px;
-  height: 500px;
-  box-shadow: 0px 0px 18px 7px #6f6363;
-}
-#result {
-  grid-column-start: span 4;
-  display: grid;
-  grid-template-rows: 1fr 2fr;
-  border: 1px solid black;
-  height: 100px;
-  background-color: silver;
-  padding: 2%;
-  margin-bottom: 10px;
-  border-radius: 15%;
-}
-.history1 {
-  grid-row-start: 1;
-}
-.output {
-  grid-row-start: 2;
-  text-align: right;
-  padding-top: 20px;
-  font-size: 2rem;
-  
-}
-#history-value-1 {
-  margin: 0;
-  padding-left: 5px;
-  color: grey;
-}
-#keyboard {
-  display: grid;
-  grid-gap: 10px;
-  grid-template-columns: repeat(4, 1fr);
-}
-button {
-  border: 1px solid black;
-  outline: none;
-  height: 67.5px;
-  border-radius: 50%;
-  font-weight: bold;
-  cursor: pointer;
-  font-size: 1.5em;
-  font-family:'Merienda';
-}
-.operator{
-  background-color: rgb(119, 117, 111);
-  color: white;
-  font-size: 1.5em;
-}
-#clear{
-  background-color: aquamarine;
-  color: black;
-}
-#delete{
-  background-color: aquamarine;
-  font-size: 1.5em;
-  color: black;
-}
-#equal {
-  border-radius: 10%;
-  background-color: aquamarine;
-  color: black;
-}
-.decimal{
-  background-color: rgb(119, 117, 111);
-  color: white;
-  font-size: 2em;
-  padding-bottom: 20px;
-}
-button:hover {
-  opacity: .60;
+:root {
+  --bg: #0f1115;
+  --panel: #171a21;
+  --key: #232733;
+  --key-hover: #2c3140;
+  --fn: #2f3545;
+  --op: #f59e0b;
+  --op-text: #1a1204;
+  --text: #f3f4f6;
+  --muted: #8b93a7;
+  --radius: 18px;
 }
 
-/*
-@media screen and (min-width: 750px) {
-  body {
-    max-width: 100%;
-    min-width: 750px;
-    max-height: 100vh;
-  }
-  .header-wrap {
-    font-size: 1.5rem;
-    max-width: 400px;
-    margin: 0 auto;
-    text-align: center;
-  }
-  #calculator {
-    margin: 0 auto;
-    padding: 20px;
-    border-radius: 10%;
-    background-color: rgb(75, 75, 65);
-    width: 350px;
-    height: 400px;
-    box-shadow: 0px 0px 18px 7px #6f6363;
-  }
-  #result {
-    grid-column-start: span 4;
-    border-radius: 0%;
-    background-color: #eee;
-    border: 2px solid rgb(255, 187, 0);
-    height: 75px;
-    display: grid;
-    grid-template-rows: 30px 45px;
-    margin: 0;
-    padding-top: 0;
-    margin-top: 10px;
-    margin-bottom: 20px;
-  }
-  .history {
-    grid-row-start: 1;
-  }
-  .output {
-    grid-row-start: 2;
-    text-align: right;
-    // background: red;
-  }
-  #history-value {
-    //  background-color: red;
-    margin: 0;
-    padding-left: 5px;
-    color: grey;
-  }
-  #output-valuet {
-    // background-color: blue;
-    margin: 0;
-    padding-right: 5px;
-    font-size: 1.5rem;
-  }
-  #keyboard {
-    display: grid;
-    grid-gap: 10px;
-    grid-template-columns: repeat(4, 1fr);
-  }
-  button {
-    background-color: #eee;
-    border: 2px solid rgb(255, 187, 0);
-    border-radius: 25%;
-    padding: 10px;
-    text-align: center;
-    min-width: 50px;
-    min-height: 50px;
-    font-weight: bold;
-    cursor: pointer;
-    outline: 0;
-  }
-  button:hover {
-    background-color: rgb(255, 187, 0);
-  }
-  #equal button {
-    min-width: 110px;
-    //background-color: aqua;
-  }
-  #equal {
-    grid-column-start: span 2;
-  }
-  .Footer-wrap {
-    font-size: 1.5rem;
-    max-width: 475px;
-    margin: 0 auto;
-    text-align: center;
-  }
+* {
+  box-sizing: border-box;
 }
-/*
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at 50% 0%, #1c2030 0%, var(--bg) 60%);
+  color: var(--text);
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+  gap: 20px;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.calculator {
+  width: 100%;
+  max-width: 340px;
+  background: var(--panel);
+  border-radius: 28px;
+  padding: 20px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.display {
+  padding: 16px 8px 20px;
+  text-align: right;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  min-height: 110px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.history {
+  color: var(--muted);
+  font-size: 1rem;
+  min-height: 1.4em;
+  overflow-wrap: anywhere;
+}
+
+.output {
+  display: block;
+  font-size: 2.6rem;
+  font-weight: 500;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.output.is-long {
+  font-size: 1.8rem;
+}
+
+.keys {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.key {
+  aspect-ratio: 1;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--key);
+  color: var(--text);
+  font: inherit;
+  font-size: 1.35rem;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.05s;
+}
+
+.key:hover {
+  background: var(--key-hover);
+}
+
+.key:active,
+.key.is-pressed {
+  transform: scale(0.95);
+}
+
+.key:focus-visible {
+  outline: 2px solid var(--op);
+  outline-offset: 2px;
+}
+
+.key--fn {
+  background: var(--fn);
+  color: #cbd2e1;
+}
+
+.key--op,
+.key--equals {
+  background: var(--op);
+  color: var(--op-text);
+  font-weight: 600;
+}
+
+.key--op:hover,
+.key--equals:hover {
+  background: #fbbf24;
+}
+
+.key--op.is-active {
+  background: var(--text);
+}
+
+.hint {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-align: center;
+}
