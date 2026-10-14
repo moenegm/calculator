@@ -1,4 +1,4 @@
-# Calculator
+# Mr. Negm's Calculator
 
 A calculator that runs in the browser, built with plain HTML, CSS and JavaScript with no libraries or build step.
 
